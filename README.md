@@ -6,7 +6,7 @@ Download song or album from Youtube Music using pytube library.
 python3 yt_downloader.py
 
 Are you downloading a playlist (y/n)? <y or n>
-Enter YouTube video URL: <music.youtube.com URL>
+Enter YouTube Music URL: <music.youtube.com URL>
 Where do you want to save the file? <destination_filepath>
 ```
 ### Example:
@@ -15,7 +15,7 @@ To download playlist/album and create a sub-directory in current location:
 python3 yt_downloader.py
 
 Are you downloading a playlist (y/n)? y
-Enter YouTube video URL: <music.youtube.com URL>
+Enter YouTube Music URL: <music.youtube.com URL>
 Where do you want to save the file? ./<playlist_name>
 ```
 

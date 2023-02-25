@@ -92,7 +92,7 @@ def change_url(url):
 
 
 is_playlist = input("Are you downloading a playlist (y/n)? ").lower() == "y"
-url = change_url(input("Enter YouTube video URL: "))
+url = change_url(input("Enter YouTube Music URL: "))
 filename = input("Where do you want to save the file? ")
 
 if is_playlist:
