@@ -1,6 +1,11 @@
 # youtube_downloader
 Download song or album from Youtube Music using pytube library.
 
+## Dependency:
+```
+pip install pytube
+```
+
 ## Usage
 ```
 python3 yt_downloader.py
