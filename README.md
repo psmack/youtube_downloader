@@ -25,6 +25,6 @@ No validation check for filepath or URL. So be sure to provide correct inputs.
 ## Checklist:
 - [x] Download only song
 - [x] Download songs in playlist or album
-- [] Create GUI
-- [] Validate URL
-- [] Validate filepath 
+- [ ] Create GUI
+- [ ] Validate URL
+- [ ] Validate filepath 
