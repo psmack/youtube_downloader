@@ -19,13 +19,13 @@ def download_playlist(link, filename):
         filename: Destination for downloaded files.
     """
     try:
-        playlist = Playlist(link)
-        playlist.video_urls
+        playlist = list(Playlist(link))
+        for i in range(len(playlist)):
+            song = YouTube(playlist[i], use_oauth=True, allow_oauth_cache=True)
+            downloader(song, filename)
 
-        for item in playlist.videos:
-            downloader(item, filename)
     except:
-        print("Error: Please check the filepath or URL")
+        print("Error: Please check the filepath or URL [album]")
 
 
 def download_single(link, filename):
@@ -36,11 +36,12 @@ def download_single(link, filename):
         link: URL of the song.
         filename: Destination for downloaded file.
     """
+    print(link)
     try:
-        song = YouTube(link)
+        song = YouTube(link, use_oauth=True, allow_oauth_cache=True)
         downloader(song, filename)
     except:
-        print("Error: Please check the filepath or URL")
+        print("Error: Please check the filepath or URL [singles]")
 
 
 def downloader(song, filename):
@@ -56,18 +57,20 @@ def downloader(song, filename):
         print(f"Downloading: {song.title}")
         out_file = song.streams.get_audio_only().download(output_path=filename)
     except:
-        print("An error has occurred during download")
+        print("An error has occurred during download [downloader]")
         sys.exit(1)
 
     # Change the file extension from .mp4 to .mp3
-    try:
-        print(f"Converting {song.title} to .mp3")
-        base, ext = os.path.splitext(out_file)
-        new_file = base + ".mp3"
-        os.rename(out_file, new_file)
-    except:
-        print("An error has occurred during filename convertion")
-        sys.exit(1)
+    # Files are corrupted .mp3 that can only be play on computer
+    # Use VLC media player to convert to .mp3 
+    # try:
+    #     print(f"Converting {song.title} to .mp3")
+    #     base, ext = os.path.splitext(out_file)
+    #     new_file = base + ".mp3"
+    #     # os.rename(out_file, new_file)
+    # except:
+    #     print("An error has occurred during filename convertion")
+    #     sys.exit(1)
 
     print(f"{song.title} completed!\n{'=' * 50}")
 
@@ -83,19 +86,22 @@ def change_url(url):
         Updated url string with "youtu.be".
     """
 
-    addr = "youtu.be"
+    addr = "youtube.com"
     new_url = url.replace("music.youtube.com", addr)
     if not addr in new_url:
         print("Error: Invalid URL")
         sys.exit(1)
     return new_url
 
+def run():
+    is_playlist = input("Are you downloading a playlist (y/n)? ").lower() == "y"
+    url = input("Enter YouTube Music URL: ")
+    filename = input("Where do you want to save the file? ")
 
-is_playlist = input("Are you downloading a playlist (y/n)? ").lower() == "y"
-url = change_url(input("Enter YouTube Music URL: "))
-filename = input("Where do you want to save the file? ")
+    if is_playlist:
+        download_playlist(url, filename)
+    else:
+        download_single(url, filename)
 
-if is_playlist:
-    download_playlist(url, filename)
-else:
-    download_single(url, filename)
+if __name__ == "__main__":
+    run()
